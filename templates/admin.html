@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Trip Planner</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+    <style>
+        .card-title {
+            cursor: pointer;
+        }
+        .card-selected {
+            background-color: #f8f9fa;
+            border: 2px solid #007bff;
+            transition: background-color 0.3s, border 0.3s;
+        }
+        .card-selected-dark {
+            background-color: #343a40;
+            border: 2px solid #007bff;
+            transition: background-color 0.3s, border 0.3s;
+        }
+        .navbar-brand img {
+            height: 40px;
+        }
+        .navbar-dark .navbar-nav .nav-link {
+            color: rgba(255,255,255,.55);
+        }
+        .navbar-light .navbar-nav .nav-link {
+            color: rgba(0,0,0,.55);
+        }
+    </style>
+</head>
+<body class="light-mode">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{{ url_for('index') }}">
+        <img src="{{ url_for('static', filename='logo_dark.png') }}" id="navbar-logo" alt="Logo" data-light-logo="{{ url_for('static', filename='logo.png') }}" data-dark-logo="{{ url_for('static', filename='logo_dark.png') }}">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('admin') }}">Admin Panel</a>
+            </li>
+            <li class="nav-item">
+                <button id="darkModeToggle" class="btn btn-secondary">Toggle Dark Mode</button>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <form id="trip-form" action="{{ url_for('admin') }}" method="post" onsubmit="handleFormSubmit(event)">
+        <div class="form-group">
+            <label for="date">Date</label>
+            <input type="date" class="form-control" id="date" name="date" required>
+        </div>
+        <div class="form-group">
+            <label for="travel" class="sr-only">Travel Details</label>
+            <input type="text" class="form-control" id="travel" name="travel" placeholder="Travel Details" required>
+        </div>
+        <div class="form-group">
+            <label for="stay">Accommodation</label>
+            <input type="text" class="form-control" id="stay" name="stay" required>
+        </div>
+        <div class="form-group">
+            <label for="visit">Places to Visit</label>
+            <div id="visit-list">
+                <input type="text" class="form-control mb-2" id="visit" placeholder="Add a place to visit">
+                <button type="button" class="btn btn-primary mb-2" onclick="addVisit()">Add</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="eat">Places to Eat</label>
+            <div id="eat-list">
+                <input type="text" class="form-control mb-2" id="eat" placeholder="Add a place to eat">
+                <button type="button" class="btn btn-primary mb-2" onclick="addEat()">Add</button>
+            </div>
+        </div>
+        <input type="hidden" name="visit-hidden" id="visit-hidden">
+        <input type="hidden" name="eat-hidden" id="eat-hidden">
+        <button type="submit" class="btn btn-primary">Save Trip</button>
+    </form>
+    <div class="mt-5">
+        <h2>Current Trips</h2>
+        <div class="card-list">
+            {% for date in date_list %}
+            <div class="card shadow-lg" onclick="selectDate('{{ date }}', this)">
+                <div class="card-body">
+                    <h5 class="card-title">{{ date }}</h5>
+                    {% if date in trip_details %}
+                    <p>{{ trip_details[date]['travel'] }}</p>
+                    <p><strong>Accommodation:</strong> {{ trip_details[date]['stay'] }}</p>
+
+                    <p><button class="btn btn-link" type="button" data-toggle="collapse" data-target="#visit{{ loop.index }}" aria-expanded="false" aria-controls="visit{{ loop.index }}">
+                        Places to Visit
+                    </button></p>
+                    <div class="collapse" id="visit{{ loop.index }}">
+                        <ul>
+                            {% for place in trip_details[date]['visit'] %}
+                            <li>{{ place }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <p><button class="btn btn-link" type="button" data-toggle="collapse" data-target="#eat{{ loop.index }}" aria-expanded="false" aria-controls="eat{{ loop.index }}">
+                        Places to Eat
+                    </button></p>
+                    <div class="collapse" id="eat{{ loop.index }}">
+                        <ul>
+                            {% for place in trip_details[date]['eat'] %}
+                            <li>{{ place }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    {% else %}
+                    <p>No details available for this day.</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+<script>
+    const tripDetails = {{ trip_details | tojson }};
+</script>
+</body>
+</html>

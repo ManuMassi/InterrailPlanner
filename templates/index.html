@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Planner</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+    <style>
+        .navbar-brand img {
+            height: 40px;
+        }
+        .navbar-dark .navbar-nav .nav-link {
+            color: rgba(255, 255, 255, .55);
+        }
+        .navbar-light .navbar-nav .nav-link {
+            color: rgba(0, 0, 0, .55);
+        }
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .travel-details {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="light-mode">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{{ url_for('index') }}">
+        <img src="{{ url_for('static', filename='logo_dark.png') }}" id="navbar-logo" alt="Logo" data-light-logo="{{ url_for('static', filename='logo.png') }}" data-dark-logo="{{ url_for('static', filename='logo_dark.png') }}">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('admin') }}">Admin Panel</a>
+            </li>
+            <li class="nav-item">
+                <button id="darkModeToggle" class="btn btn-secondary">Toggle Dark Mode</button>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container mt-5">
+    <div class="row">
+        {% for date, details in trip_details.items() %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h5 class="card-title">{{ date }}</h5>
+                    <p class="travel-details">{{ details['travel'] }}</p>
+                    <p class="accomodations"><strong>Accommodation:</strong> {{ details['stay'] }}</p>
+
+                    <p><button class="btn btn-link" type="button" data-toggle="collapse" data-target="#visit{{ loop.index }}" aria-expanded="false" aria-controls="visit{{ loop.index }}">
+                        Places to Visit
+                    </button></p>
+                    <div class="collapse" id="visit{{ loop.index }}">
+                        <ul>
+                            {% for place in details['visit'] %}
+                            <li>{{ place }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <p><button class="btn btn-link" type="button" data-toggle="collapse" data-target="#eat{{ loop.index }}" aria-expanded="false" aria-controls="eat{{ loop.index }}">
+                        Places to Eat
+                    </button></p>
+                    <div class="collapse" id="eat{{ loop.index }}">
+                        <ul>
+                            {% for place in details['eat'] %}
+                            <li>{{ place }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

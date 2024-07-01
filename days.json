@@ -1,0 +1,83 @@
+{
+    "12/09/2024": {
+        "travel": "Flight Rome - Madrid 14:30",
+        "stay": "https://www.airbnb.com/slink/4XzreqZ3",
+        "visit": [
+            "Prado Museum",
+            "Retiro Park"
+        ],
+        "eat": []
+    },
+    "13/09/2024": {
+        "travel": "Madrid",
+        "stay": "https://www.airbnb.com/slink/4XzreqZ3",
+        "visit": [],
+        "eat": []
+    },
+    "14/09/2024": {
+        "travel": "Train Madrid - Barcelona",
+        "stay": "https://www.hostelworld.com/hosteldetails.php/?HostelNumber=789&source=app_shared_property-789",
+        "visit": [],
+        "eat": []
+    },
+    "15/09/2024": {
+        "travel": "Overnight Bus Barcelona - Lyon",
+        "stay": "The bus",
+        "visit": [],
+        "eat": []
+    },
+    "16/09/2024": {
+        "travel": "Lyon",
+        "stay": "Hotel in Lyon",
+        "visit": [],
+        "eat": []
+    },
+    "17/09/2024": {
+        "travel": "Lyon",
+        "stay": "Hotel in Lyon",
+        "visit": [],
+        "eat": []
+    },
+    "18/09/2024": {
+        "travel": "Train Lyon - Zurich",
+        "stay": "Hotel in Zurich",
+        "visit": [],
+        "eat": []
+    },
+    "19/09/2024": {
+        "travel": "Train Zurich - Munich",
+        "stay": "Hotel in Munich",
+        "visit": [],
+        "eat": []
+    },
+    "20/09/2024": {
+        "travel": "Munich",
+        "stay": "Hotel in Munich",
+        "visit": [],
+        "eat": []
+    },
+    "21/09/2024": {
+        "travel": "Train Munich - Budapest",
+        "stay": "Hotel in Budapest",
+        "visit": [],
+        "eat": []
+    },
+    "22/09/2024": {
+        "travel": "Budapest",
+        "stay": "Hotel in Budapest",
+        "visit": [],
+        "eat": []
+    },
+    "23/09/2024": {
+        "travel": "Budapest",
+        "stay": "Sleep in the airport",
+        "visit": [],
+        "eat": []
+    },
+    "24/09/2024": {
+        "travel": "Flight Budapest - Rome 9:00",
+        "stay": "At our home",
+        "visit": [],
+        "eat": []
+    }
+}
